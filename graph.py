@@ -73,7 +73,8 @@ def draw_horizontal_line(board, values):
 def check_pixel_recursive(checked, coordinates_in_r, color_to_match, coordinates, board):
     """
     Recursive function that checks if the pixel and the neighbors belong to R.
-
+    Function breaks with default setrecursionlimit, if you want to use this function you
+    should uncomment line 235.
     :param checked: List of checked pixels.
     :param coordinates_in_r: list of pixels to be changed.
     :param color_to_match: color to be matched.
@@ -87,16 +88,20 @@ def check_pixel_recursive(checked, coordinates_in_r, color_to_match, coordinates
 
             checked.append(coordinates)
             # check top neighbour
-            check_pixel_recursive(checked, coordinates_in_r, color_to_match, (coordinates[0], coordinates[1]-1), board)
+            check_pixel_recursive(
+                checked, coordinates_in_r, color_to_match, (coordinates[0], coordinates[1]-1), board)
 
             # check bottom neighbour
-            check_pixel_recursive(checked, coordinates_in_r, color_to_match, (coordinates[0], coordinates[1]+1), board)
+            check_pixel_recursive(
+                checked, coordinates_in_r, color_to_match, (coordinates[0], coordinates[1]+1), board)
 
             # check left neighbour
-            check_pixel_recursive(checked, coordinates_in_r, color_to_match, (coordinates[0]-1, coordinates[1]), board)
+            check_pixel_recursive(
+                checked, coordinates_in_r, color_to_match, (coordinates[0]-1, coordinates[1]), board)
 
             # check right neighbour
-            check_pixel_recursive(checked, coordinates_in_r, color_to_match, (coordinates[0]+1, coordinates[1]), board)
+            check_pixel_recursive(
+                checked, coordinates_in_r, color_to_match, (coordinates[0]+1, coordinates[1]), board)
 
 
 def check_pixel_imperative(color_to_match, board, coordinates):
@@ -121,8 +126,10 @@ def check_pixel_imperative(color_to_match, board, coordinates):
 
             neighbor_top = (current_coordinates[0], current_coordinates[1] - 1)
             neighbor_btn = (current_coordinates[0], current_coordinates[1] + 1)
-            neighbor_left = (current_coordinates[0] - 1, current_coordinates[1])
-            neighbor_right = (current_coordinates[0] + 1, current_coordinates[1])
+            neighbor_left = (
+                current_coordinates[0] - 1, current_coordinates[1])
+            neighbor_right = (
+                current_coordinates[0] + 1, current_coordinates[1])
 
             # check top neighbour
             if 0 <= neighbor_top[0] < NUMBER_OF_COLS and 0 <= neighbor_top[1] < NUMBER_OF_ROWS \
@@ -169,7 +176,8 @@ def draw_region(board, values):
     color_to_match = board[int(row)-1][int(column)-1]
 
     # check_pixel(checked, coordinates_in_r, color_to_match, (int(column)-1, int(row)-1), board)
-    coordinates_in_r = check_pixel_imperative(color_to_match, board, (int(column)-1, int(row)-1))
+    coordinates_in_r = check_pixel_imperative(
+        color_to_match, board, (int(column)-1, int(row)-1))
 
     for coordinate in coordinates_in_r:
         board[coordinate[1]][coordinate[0]] = color
@@ -219,11 +227,11 @@ def valid_arguments(operation, arguments):
 
     if operation == 'V':
         return valid_column(arguments[0]) and valid_row(arguments[1]) and valid_row(arguments[2]) \
-               and valid_color(arguments[3]) and arguments[1] <= arguments[2]
+            and valid_color(arguments[3]) and arguments[1] <= arguments[2]
 
     if operation == 'H':
         return valid_column(arguments[0]) and valid_column(arguments[1]) and valid_row(arguments[2]) \
-               and valid_color(arguments[3]) and arguments[0] <= arguments[1]
+            and valid_color(arguments[3]) and arguments[0] <= arguments[1]
 
     if operation == 'F':
         return valid_column(arguments[0]) and valid_row(arguments[1]) and valid_color(arguments[2])
