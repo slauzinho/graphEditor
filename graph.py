@@ -219,11 +219,11 @@ def valid_arguments(operation, arguments):
 
     if operation == 'V':
         return valid_column(arguments[0]) and valid_row(arguments[1]) and valid_row(arguments[2]) \
-               and valid_color(arguments[3])
+               and valid_color(arguments[3]) and arguments[1] <= arguments[2]
 
     if operation == 'H':
         return valid_column(arguments[0]) and valid_column(arguments[1]) and valid_row(arguments[2]) \
-               and valid_color(arguments[3])
+               and valid_color(arguments[3]) and arguments[0] <= arguments[1]
 
     if operation == 'F':
         return valid_column(arguments[0]) and valid_row(arguments[1]) and valid_color(arguments[2])
